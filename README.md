@@ -13,4 +13,7 @@ $ helm install \
 ```
 [参考](https://cert-manager.io/docs/installation/kubernetes/)
 
-#  
+#  创建 letsencrypt-prod
+```bash
+$kubectl create -f letsencrypt-prod.yaml
+```
