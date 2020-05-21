@@ -25,6 +25,7 @@
   <component name="ProjectId" id="1c9rtUmSIXOrQSThBWC3k206uCJ" />
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="GO_FMT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
