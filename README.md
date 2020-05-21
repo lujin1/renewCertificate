@@ -64,19 +64,6 @@ metadata:
 ### 2.1 配置 cronjob 中的 `namespace` 和 `certificate`
 > 多个 certificate 用逗号隔开  
 
-```bash
-          containers:
-          - name: renew-cert
-            image: harbor.wise-paas.com/library/renewcertificate:v0.0.6
-            imagePullPolicy: IfNotPresent #Always
-            command: ["/renewCertificate"]
-            args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
-```
-### 2.2 创建 cronjob
-```bash
-$ kubectl create -f cronjob-renew-cert.yaml
-```
-- cronjob-renew-cert.yaml
 ```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -98,4 +85,8 @@ spec:
             command: ["/renewCertificate"]
             args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
           restartPolicy: OnFailure
+```
+### 2.2 创建 cronjob
+```bash
+$ kubectl create -f cronjob-renew-cert.yaml
 ```
