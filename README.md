@@ -19,6 +19,29 @@ $ helm install \
 ```bash
 $ kubectl create -f letsencrypt-prod.yaml
 ```
+```yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: renew-cert
+spec:
+  schedule: "0 0 * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccount: renew-cert
+          containers:
+          - name: renew-cert
+            image: harbor.wise-paas.com/library/renewcertificate:v0.0.6
+            imagePullPolicy: IfNotPresent #Always
+            command: ["/renewCertificate"]
+            args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
+          restartPolicy: OnFailure
+```
+
 ### 1.3 配置 ingress
 1. 配置 `cert-manager.io/cluster-issuer`
 ```bash
