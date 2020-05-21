@@ -1,4 +1,6 @@
 # 免费签发证书，到期自动续订
+- 使用 cert-manager 在 letsencrypt 上签发3个月有效期的免费证书
+- 使用 renewCertificate 检查证书到期日期，当到期日期小于3天后，renew 新的证书
 
 ## 1. cert-manager
 ### 1.1 Installing cert-manager with Helm
