@@ -94,3 +94,7 @@ spec:
 ```bash
 $ kubectl create -f cronjob-renew-cert.yaml
 ```
+
+## 注意
+- letsencrypt 限制:  
+https://letsencrypt.org/docs/rate-limits/
