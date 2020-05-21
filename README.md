@@ -19,7 +19,7 @@ $ helm install \
 ```bash
 $ kubectl create -f letsencrypt-prod.yaml
 ```
-### 1.3 ingress 中配置
+### 1.3 配置 ingress
 1. 配置 `cert-manager.io/cluster-issuer`
 ```bash
 metadata:
@@ -38,7 +38,7 @@ metadata:
     secretName: <your secret>
 ```
 ## 2. 安装 renewCertificate
-### 2.1 配置 cronjob 中 `namespace` 和 `certificate`
+### 2.1 配置 cronjob 中的 `namespace` 和 `certificate`
 > 多个 certificate 用逗号隔开  
 
 ```bash
