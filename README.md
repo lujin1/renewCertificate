@@ -71,11 +71,11 @@ $ kubectl create sa renew-cert
 ```
 ### 2.2 创建 clusterrolebingding
 ```bash
-kubectl create clusterrolebinding renew-cert \
+$ kubectl create clusterrolebinding renew-cert \
   --clusterrole=cluster-admin \
   --serviceaccount=cert-manager:renew-cert
 ```
-### 2.1 配置 cronjob 中的 `namespace` 和 `certificate`
+### 2.3 配置 cronjob 中的 `namespace` 和 `certificate`
 > 多个 certificate 用逗号隔开  
 
 ```yaml
@@ -100,11 +100,11 @@ spec:
             args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
           restartPolicy: OnFailure
 ```
-### 2.2 创建 cronjob
+### 2.4 创建 cronjob
 ```bash
 $ kubectl create -f cronjob-renew-cert.yaml
 ```
 
-## 注意
+## 注意事项
 - letsencrypt 限制:  
 https://letsencrypt.org/docs/rate-limits/
