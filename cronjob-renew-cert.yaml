@@ -13,7 +13,7 @@ spec:
           serviceAccount: renew-cert
           containers:
           - name: renew-cert
-            image: harbor.wise-paas.com/library/renewcertificate:v0.0.3
+            image: harbor.wise-paas.com/library/renewcertificate:v0.0.6
             imagePullPolicy: IfNotPresent #Always
             command: ["/renewCertificate"]
             args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
