@@ -19,32 +19,32 @@ $ helm install \
 ```bash
 $ kubectl create -f letsencrypt-prod.yaml
 ```
+- letsencrypt-prod.yaml
 ```yaml
-apiVersion: batch/v1beta1
-kind: CronJob
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
 metadata:
-  name: renew-cert
+  name: letsencrypt-prod
 spec:
-  schedule: "0 0 * * *"
-  failedJobsHistoryLimit: 1
-  successfulJobsHistoryLimit: 1
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          serviceAccount: renew-cert
-          containers:
-          - name: renew-cert
-            image: harbor.wise-paas.com/library/renewcertificate:v0.0.6
-            imagePullPolicy: IfNotPresent #Always
-            command: ["/renewCertificate"]
-            args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
-          restartPolicy: OnFailure
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: lu.jin@advantech.com.cn
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: letsencrypt-prod
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
 ```
 
 ### 1.3 配置 ingress
 1. 配置 `cert-manager.io/cluster-issuer`
-```bash
+```yaml
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -75,4 +75,27 @@ metadata:
 ### 2.2 创建 cronjob
 ```bash
 $ kubectl create -f cronjob-renew-cert.yaml
+```
+- cronjob-renew-cert.yaml
+```yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: renew-cert
+spec:
+  schedule: "0 0 * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccount: renew-cert
+          containers:
+          - name: renew-cert
+            image: harbor.wise-paas.com/library/renewcertificate:v0.0.6
+            imagePullPolicy: IfNotPresent #Always
+            command: ["/renewCertificate"]
+            args: ["--namespace=harbor", "--certificate=harbor-cert,notary-cert"]
+          restartPolicy: OnFailure
 ```
