@@ -41,6 +41,7 @@ spec:
         ingress:
           class: nginx
 ```
+[参考](https://cert-manager.io/docs/configuration/acme/)
 
 ### 1.3 配置 ingress
 1. 配置 `cert-manager.io/cluster-issuer`
@@ -60,6 +61,9 @@ metadata:
     - <your domain>
     secretName: <your secret>
 ```
+
+[参考](https://cert-manager.io/docs/usage/ingress/)
+
 ## 2. 安装 renewCertificate
 ### 2.1 配置 cronjob 中的 `namespace` 和 `certificate`
 > 多个 certificate 用逗号隔开  
