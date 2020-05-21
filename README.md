@@ -65,6 +65,16 @@ metadata:
 [参考](https://cert-manager.io/docs/usage/ingress/)
 
 ## 2. 安装 renewCertificate
+### 2.1 创建 service Account
+```bash
+$ kubectl create sa renew-cert
+```
+### 2.2 创建 clusterrolebingding
+```bash
+kubectl create clusterrolebinding renew-cert \
+  --clusterrole=cluster-admin \
+  --serviceaccount=cert-manager:renew-cert
+```
 ### 2.1 配置 cronjob 中的 `namespace` 和 `certificate`
 > 多个 certificate 用逗号隔开  
 
