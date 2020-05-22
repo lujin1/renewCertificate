@@ -15,6 +15,17 @@ $ helm install \
   --version v0.15.0 \
   --set installCRDs=true
 ```
+If you're using the static manifests you need to edit the cert-manager Deployment using kubectl -n cert-manager edit deploy cert-manager
+and edit the args to include --feature-gates=ExperimentalCertificateControllers=true:
+
+```yaml
+      containers:
+      - args:
+        - --v=2
+        - --cluster-resource-namespace=$(POD_NAMESPACE)
+        - --leader-election-namespace=kube-system
+        - --feature-gates=ExperimentalCertificateControllers=true
+```
 [参考](https://cert-manager.io/docs/installation/kubernetes/)
 
 ### 1.2 创建 letsencrypt-prod
