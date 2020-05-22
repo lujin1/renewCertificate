@@ -15,8 +15,8 @@ $ helm install \
   --version v0.15.0 \
   --set installCRDs=true
 ```
-If you're using the static manifests you need to edit the cert-manager Deployment using kubectl -n cert-manager edit deploy cert-manager
-and edit the args to include --feature-gates=ExperimentalCertificateControllers=true:
+If you're using the static manifests you need to edit the cert-manager Deployment using `kubectl -n cert-manager edit deploy cert-manager`
+and edit the args to include `--feature-gates=ExperimentalCertificateControllers=true`:
 
 ```yaml
       containers:
