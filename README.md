@@ -71,9 +71,14 @@ metadata:
 ```bash
   tls:
   - hosts:
-    - <your domain>
-    secretName: <your secret>
+    - <your domain 1>
+    secretName: <your secret 1>
+  - hosts:
+    - <your domain 2>
+    secretName: <your secret 2>
 ```
+
+
 
 [参考](https://cert-manager.io/docs/usage/ingress/)
 
